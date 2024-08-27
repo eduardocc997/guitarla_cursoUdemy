@@ -8,6 +8,21 @@ function App() {
 
     //State
     const [data, setData] = useState(db)
+    const[cart, setCart] = useState([])
+
+    function addToCart(item){
+
+        const itemExists = cart.findIndex((guitar) => guitar.id == item.id); //Traemos la posicion del elemento en el arreglo si existe, si no, mostrara -1
+        if(itemExists >= 0){
+            const updatedCart = [...cart] //Creamos una copia de lo que hay en el state para no mutar el original
+            updatedCart[itemExists].quantity++  //Agregamos 1 a la cantidad de ese elemento,   itemExists es la posicion del elemento en el arreglo
+            setCart(updatedCart) //Seteamos el nuevo valor del arreglo con el quantity actualizado
+        }
+        else{
+            item.quantity = 1; //Agregamos la propiedad quantity
+            setCart(prevCart => [...prevCart, item])
+        }
+    }
 
     return (
         <>
@@ -21,6 +36,8 @@ function App() {
                         <Guitar
                             key = {guitar.id}
                             guitar = {guitar}
+                            setCart = {setCart}
+                            addToCart ={addToCart}
                         />
                     ))}
                 </div>
