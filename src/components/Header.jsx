@@ -2,6 +2,7 @@
 
 export default function Header({cart}) {
 
+    
     //State derivado
     const isEmpty = () => cart.length === 0
     const cartTotal = () => cart.reduce((total, item) => total + (item.quantity * item.price), 0)
